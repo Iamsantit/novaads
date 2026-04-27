@@ -1,0 +1,386 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap");
+
+/* ═══════════════════════════════════════════
+   ROOT VARIABLES & BASE
+═══════════════════════════════════════════ */
+:root {
+  --bg: #020510;
+  --fg: rgba(255, 255, 255, 0.87);
+  --neon-cyan: #00f5ff;
+  --neon-violet: #a855f7;
+  --neon-pink: #f472b6;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(0, 245, 255, 0.25);
+  color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATED STARFIELD — 3 CSS LAYERS
+   Layer 1 (html::before):  fine stars, 100px tile, drifts right
+   Layer 2 (html::after):   medium stars, 200px tile, drifts left
+   Layer 3 (body::before):  bright stars, 300px tile, drifts diagonal
+   Layer 4 (body::after):   nebula color clouds
+═══════════════════════════════════════════ */
+
+html::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 10px 15px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1px 1px at 35px 50px, rgba(255,255,255,0.60), transparent),
+    radial-gradient(1px 1px at 60px  8px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1px 1px at 80px 70px, rgba(255,255,255,0.50), transparent),
+    radial-gradient(1px 1px at 22px 85px, rgba(255,255,255,0.70), transparent),
+    radial-gradient(1px 1px at 48px 30px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1px 1px at 72px 45px, rgba(255,255,255,0.60), transparent),
+    radial-gradient(1px 1px at  5px 55px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1px 1px at 90px 25px, rgba(255,255,255,0.40), transparent),
+    radial-gradient(1px 1px at 15px 95px, rgba(255,255,255,0.70), transparent),
+    radial-gradient(1px 1px at 55px 65px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1px 1px at 40px 90px, rgba(255,255,255,0.50), transparent),
+    radial-gradient(1px 1px at 78px 15px, rgba(255,255,255,0.60), transparent),
+    radial-gradient(1px 1px at 25px 40px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1px 1px at 95px 80px, rgba(255,255,255,0.70), transparent),
+    radial-gradient(1px 1px at 12px 68px, rgba(255,255,255,0.50), transparent),
+    radial-gradient(1px 1px at 68px 92px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1px 1px at 85px 38px, rgba(255,255,255,0.60), transparent),
+    radial-gradient(1px 1px at 30px 20px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1px 1px at 50px  5px, rgba(255,255,255,0.70), transparent);
+  background-size: 100px 100px;
+  animation: star-drift-1 60s linear infinite;
+}
+
+html::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at  20px  30px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1.5px 1.5px at  80px 120px, rgba(255,255,255,0.70), transparent),
+    radial-gradient(1.5px 1.5px at 140px  60px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1.5px 1.5px at 170px 150px, rgba(255,255,255,0.60), transparent),
+    radial-gradient(1.5px 1.5px at  50px 170px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1.5px 1.5px at 110px  20px, rgba(255,255,255,0.70), transparent),
+    radial-gradient(1.5px 1.5px at 190px  80px, rgba(255,255,255,0.50), transparent),
+    radial-gradient(1.5px 1.5px at  30px 100px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1.5px 1.5px at 160px 110px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1.5px 1.5px at  90px  55px, rgba(255,255,255,0.60), transparent),
+    radial-gradient(1.5px 1.5px at 120px 190px, rgba(255,255,255,0.70), transparent),
+    radial-gradient(1.5px 1.5px at  10px 140px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(1.5px 1.5px at  60px  40px, rgba(255,255,255,0.50), transparent),
+    radial-gradient(1.5px 1.5px at 180px  30px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(1.5px 1.5px at 100px 160px, rgba(255,255,255,0.60), transparent);
+  background-size: 200px 200px;
+  animation: star-drift-2 100s linear infinite;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px   2px   at  40px  70px, rgba(255,255,255,0.95), transparent),
+    radial-gradient(2.5px 2.5px at 120px  30px, rgba(200,240,255,0.90), transparent),
+    radial-gradient(2px   2px   at 200px 150px, rgba(255,255,255,0.95), transparent),
+    radial-gradient(2.5px 2.5px at 270px  90px, rgba(200,240,255,0.80), transparent),
+    radial-gradient(2px   2px   at  60px 220px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(3px   3px   at 160px 280px, rgba(200,240,255,0.85), transparent),
+    radial-gradient(2px   2px   at 240px  40px, rgba(255,255,255,0.95), transparent),
+    radial-gradient(2.5px 2.5px at  10px 160px, rgba(200,240,255,0.70), transparent),
+    radial-gradient(2px   2px   at 290px 260px, rgba(255,255,255,0.90), transparent),
+    radial-gradient(3px   3px   at  80px 130px, rgba(200,240,255,0.85), transparent),
+    radial-gradient(2px   2px   at 190px 200px, rgba(255,255,255,0.80), transparent),
+    radial-gradient(2.5px 2.5px at 220px 110px, rgba(168,220,255,0.90), transparent);
+  background-size: 300px 300px;
+  animation: star-drift-3 150s linear infinite;
+}
+
+/* Nebula color overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 25%, rgba(0,245,255,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 15%, rgba(168,85,247,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 75% at 50% 85%, rgba(244,114,182,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, rgba(2,5,16,0.35) 100%);
+  animation: nebula-shift 25s ease-in-out infinite;
+}
+
+@keyframes star-drift-1 {
+  from { background-position: 0 0; }
+  to   { background-position: 100px 25px; }
+}
+@keyframes star-drift-2 {
+  from { background-position: 0 0; }
+  to   { background-position: -200px 50px; }
+}
+@keyframes star-drift-3 {
+  from { background-position: 0 0; }
+  to   { background-position: 150px -80px; }
+}
+@keyframes nebula-shift {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+/* ═══════════════════════════════════════════
+   COMPONENT LAYER — SPACE EDITION
+═══════════════════════════════════════════ */
+@layer components {
+  /* Primary CTA button — neon cyan glow */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full
+           bg-gradient-to-r from-cyan-400 to-navy-600
+           px-6 py-3 font-semibold text-white
+           transition-all focus:outline-none;
+    box-shadow: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15);
+  }
+  .btn-primary:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 40px rgba(0,245,255,0.65), 0 0 80px rgba(0,245,255,0.25);
+  }
+
+  /* Ghost button — dark glass */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full
+           px-6 py-3 font-semibold text-white backdrop-blur transition-all;
+    border: 1px solid rgba(255,255,255,0.10);
+    background-color: rgba(255,255,255,0.05);
+  }
+  .btn-ghost:hover {
+    border-color: rgba(0,245,255,0.40);
+    background-color: rgba(255,255,255,0.10);
+    color: #93c5fd;
+  }
+
+  /* Chip / badge */
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full
+           px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-300;
+    border: 1px solid rgba(0,245,255,0.30);
+    background-color: rgba(0,245,255,0.10);
+  }
+
+  /* Generic card — dark glass */
+  .card {
+    @apply rounded-3xl p-8 backdrop-blur-md;
+    border: 1px solid rgba(255,255,255,0.08);
+    background-color: rgba(255,255,255,0.05);
+    box-shadow: 0 10px 40px -12px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.07);
+  }
+
+  /* Display heading */
+  .heading-display {
+    @apply font-display text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl;
+  }
+
+  /* Gradient text (cyan → violet) */
+  .text-gradient {
+    background: linear-gradient(90deg, #4edcff, #00f5ff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Background nebula mesh */
+  .bg-mesh {
+    background:
+      radial-gradient(50% 50% at 20% 10%, rgba(0,245,255,0.12) 0%, transparent 60%),
+      radial-gradient(60% 60% at 90% 20%, rgba(168,85,247,0.10) 0%, transparent 60%),
+      radial-gradient(40% 40% at 50% 100%, rgba(0,245,255,0.08) 0%, transparent 60%);
+  }
+
+  /* Glass card helper */
+  .glass-card {
+    @apply rounded-2xl backdrop-blur-md;
+    border: 1px solid rgba(255,255,255,0.08);
+    background-color: rgba(4,9,28,0.60);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL DARK THEME OVERRIDES
+   These adapt light-colored Tailwind classes
+   for the dark space background.
+═══════════════════════════════════════════ */
+
+/* — Text — */
+.text-navy-900, .text-navy-800, .text-gray-900, .text-gray-800 {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+.text-navy-700, .text-gray-700 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.text-navy-700\/80 {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+.text-navy-600, .text-gray-600 {
+  color: rgba(255, 255, 255, 0.60) !important;
+}
+.text-gray-500 {
+  color: rgba(255, 255, 255, 0.50) !important;
+}
+.text-gray-400 {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+/* — Backgrounds — */
+.bg-white {
+  background-color: rgba(6, 14, 38, 0.65) !important;
+  backdrop-filter: blur(12px);
+}
+.bg-white\/95,
+.bg-white\/90,
+.bg-white\/80 {
+  background-color: rgba(6, 14, 38, 0.75) !important;
+  backdrop-filter: blur(14px);
+}
+.bg-white\/70 {
+  background-color: rgba(6, 14, 38, 0.68) !important;
+  backdrop-filter: blur(10px);
+}
+.bg-gray-50 {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+.bg-gray-100 {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+.bg-navy-50  { background-color: rgba(0, 245, 255, 0.08) !important; }
+.bg-cyan-50  { background-color: rgba(0, 245, 255, 0.10) !important; }
+.bg-emerald-50 { background-color: rgba(74, 222, 128, 0.10) !important; }
+.bg-amber-50   { background-color: rgba(251, 191, 36, 0.10) !important; }
+
+/* — Borders — */
+.border-gray-200,
+.border-gray-100 {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+.border-navy-900\/5  { border-color: rgba(255, 255, 255, 0.06) !important; }
+.border-navy-900\/10 { border-color: rgba(255, 255, 255, 0.10) !important; }
+.border-cyan-200     { border-color: rgba(0, 245, 255, 0.25) !important; }
+.border-emerald-200  { border-color: rgba(74, 222, 128, 0.25) !important; }
+.border-amber-200    { border-color: rgba(251, 191, 36, 0.25) !important; }
+
+/* — Shadows — */
+.shadow-card {
+  box-shadow: 0 10px 40px -12px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.06) !important;
+}
+.shadow-sm {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06) !important;
+}
+.shadow-xl {
+  box-shadow: 0 20px 60px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.06) !important;
+}
+
+/* — Text color corrections inside dark cards — */
+.text-emerald-900 { color: rgba(134,239,172,0.95) !important; }
+.text-emerald-700 { color: rgba(134,239,172,0.80) !important; }
+.text-emerald-600 { color: #4ade80 !important; }
+.text-amber-700   { color: rgba(251,191,36,0.90) !important; }
+
+/* ═══════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════ */
+.marquee {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════
+   GRADIENT BORDER (neon edition)
+═══════════════════════════════════════════ */
+.gradient-border {
+  position: relative;
+  border-radius: 1.5rem;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0,245,255,0.7), rgba(168,85,247,0.5), rgba(0,245,255,0.7));
+  background-size: 200% 200%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: gradient-x 4s ease infinite;
+}
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* ═══════════════════════════════════════════
+   HOVER SCAN-LINE SWEEP
+   Add class "space-hover" to any card
+═══════════════════════════════════════════ */
+.space-hover {
+  position: relative;
+  overflow: hidden;
+}
+.space-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.07), transparent);
+  pointer-events: none;
+  transition: left 0.6s ease;
+}
+.space-hover:hover::after {
+  left: 150%;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR (dark edition)
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(2,5,16,0.8); }
+::-webkit-scrollbar-thumb {
+  background: rgba(0,245,255,0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,245,255,0.45);
+}
