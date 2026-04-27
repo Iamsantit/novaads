@@ -88,20 +88,24 @@ export default function EditorClient({ id }: { id: string }) {
   }
 
   function addBenefit() {
+    if (!payload) return;
     const cur = payload.data.benefits ?? [];
     patch("benefits", [...cur, { title: "Nuevo beneficio", body: "Descripción corta." }]);
   }
   function updateBenefit(i: number, field: "title" | "body", value: string) {
+    if (!payload) return;
     const cur = [...(payload.data.benefits ?? [])];
     cur[i] = { ...cur[i], [field]: value };
     patch("benefits", cur);
   }
   function removeBenefit(i: number) {
+    if (!payload) return;
     const cur = [...(payload.data.benefits ?? [])];
     cur.splice(i, 1);
     patch("benefits", cur);
   }
   function moveBenefit(i: number, dir: -1 | 1) {
+    if (!payload) return;
     const cur = [...(payload.data.benefits ?? [])];
     const target = i + dir;
     if (target < 0 || target >= cur.length) return;
@@ -110,15 +114,18 @@ export default function EditorClient({ id }: { id: string }) {
   }
 
   function addFaq() {
+    if (!payload) return;
     const cur = payload.data.faq ?? [];
     patch("faq", [...cur, { q: "Nueva pregunta", a: "Respuesta." }]);
   }
   function updateFaq(i: number, field: "q" | "a", value: string) {
+    if (!payload) return;
     const cur = [...(payload.data.faq ?? [])];
     cur[i] = { ...cur[i], [field]: value };
     patch("faq", cur);
   }
   function removeFaq(i: number) {
+    if (!payload) return;
     const cur = [...(payload.data.faq ?? [])];
     cur.splice(i, 1);
     patch("faq", cur);
