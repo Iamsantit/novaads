@@ -40,7 +40,9 @@
       "Bash(curl -s -o /dev/null -w \"registro:%{http_code}\\\\n\" http://localhost:4321/registro)",
       "Bash(curl -s -o /dev/null -w \"verificar:%{http_code}\\\\n\" http://localhost:4321/verificar)",
       "Bash(curl -s -o /dev/null -w \"dashboard-ia:%{http_code}\\\\n\" \"http://localhost:4321/dashboard/ia?module=landing\")",
-      "Bash(curl -s -o /dev/null -w \"preview:%{http_code}\\\\n\" http://localhost:4321/preview/test)"
+      "Bash(curl -s -o /dev/null -w \"preview:%{http_code}\\\\n\" http://localhost:4321/preview/test)",
+      "Bash(NODE_OPTIONS=\"--max-old-space-size=8192\" npx next build)",
+      "Bash(tee build.log)"
     ]
   }
 }
